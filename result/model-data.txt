@@ -1,0 +1,127 @@
+
+> summary(child_status_logistic)
+
+Call:
+glm(formula = child_undernutrition ~ age_at_marriage + education_level + 
+    avg_monthly_income + anc_visit + mother_anaemic_preg, family = binomial, 
+    data = mother_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.9476  -0.4120   0.6830   0.8223   1.0916  
+
+Coefficients:
+                    Estimate Std. Error z value Pr(>|z|)  
+(Intercept)           4.3066     2.6142   1.647   0.0995 .
+age_at_marriage       0.3486     0.5357   0.651   0.5152  
+education_level      -0.2176     0.2657  -0.819   0.4128  
+avg_monthly_income   -0.1253     0.2775  -0.452   0.6516  
+anc_visit            -0.2228     0.2367  -0.941   0.3466  
+mother_anaemic_preg  -1.0935     1.1057  -0.989   0.3227  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 89.394  on 78  degrees of freedom
+Residual deviance: 86.318  on 73  degrees of freedom
+  (1 observation deleted due to missingness)
+AIC: 98.318
+
+Number of Fisher Scoring iterations: 4
+
+
+> summary(child_status_logistic_stunted)
+
+Call:
+glm(formula = child_stunted ~ age_at_marriage + education_level + 
+    avg_monthly_income + anc_visit + mother_anaemic_preg, family = binomial, 
+    data = mother_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.5541  -0.9444  -0.6938   1.1551   1.8417  
+
+Coefficients:
+                    Estimate Std. Error z value Pr(>|z|)  
+(Intercept)           3.2665     2.1753   1.502   0.1332  
+age_at_marriage       0.6135     0.5061   1.212   0.2254  
+education_level       0.2801     0.2471   1.134   0.2568  
+avg_monthly_income   -0.3211     0.2667  -1.204   0.2287  
+anc_visit            -0.1704     0.2282  -0.746   0.4554  
+mother_anaemic_preg  -1.9839     0.8718  -2.276   0.0229 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 105.60  on 77  degrees of freedom
+Residual deviance:  95.29  on 72  degrees of freedom
+  (2 observations deleted due to missingness)
+AIC: 107.29
+
+Number of Fisher Scoring iterations: 4
+
+
+> summary(child_status_logistic_wasted)
+
+Call:
+glm(formula = child_wasted ~ age_at_marriage + education_level + 
+    avg_monthly_income + anc_visit + mother_anaemic_preg, family = binomial, 
+    data = mother_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.6813  -1.0849  -0.6558   1.0351   2.0042  
+
+Coefficients:
+                    Estimate Std. Error z value Pr(>|z|)  
+(Intercept)         -0.75930    2.14765  -0.354   0.7237  
+age_at_marriage     -0.20032    0.48261  -0.415   0.6781  
+education_level     -0.55265    0.25661  -2.154   0.0313 *
+avg_monthly_income   0.03505    0.25264   0.139   0.8897  
+anc_visit           -0.22003    0.23295  -0.945   0.3449  
+mother_anaemic_preg  1.47335    0.85027   1.733   0.0831 .
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 110.10  on 79  degrees of freedom
+Residual deviance: 100.86  on 74  degrees of freedom
+AIC: 112.86
+
+Number of Fisher Scoring iterations: 4
+
+
+> summary(child_status_logistic_underweight)
+
+Call:
+glm(formula = child_underweight ~ age_at_marriage + education_level + 
+    avg_monthly_income + anc_visit + mother_anaemic_preg, family = binomial, 
+    data = mother_data)
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-1.45409  -1.15312  -0.07942   1.17270   1.38268  
+
+Coefficients:
+                    Estimate Std. Error z value Pr(>|z|)
+(Intercept)          0.76746    1.94838   0.394    0.694
+age_at_marriage      0.41017    0.46884   0.875    0.382
+education_level      0.10687    0.23199   0.461    0.645
+avg_monthly_income   0.07823    0.24439   0.320    0.749
+anc_visit           -0.05040    0.21348  -0.236    0.813
+mother_anaemic_preg -0.87233    0.76278  -1.144    0.253
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 108.13  on 77  degrees of freedom
+Residual deviance: 105.82  on 72  degrees of freedom
+  (2 observations deleted due to missingness)
+AIC: 117.82
+
+Number of Fisher Scoring iterations: 4
+
+
+> sink()

@@ -1,0 +1,27 @@
+Topic : Impact of child marriage on child under-nutrition
+
+Tools used :
+1. R programming language (R 4.1)
+2. RStudio
+NOTE: No additional R packages were installed in the code
+
+Steps to execute:
+1. Execute script.R either from RStudio, or from command prompt
+
+Explanation of the code:
+Step-1: Determination of child under-nutrition status :-
+	- WHO growth standards were used for the determination. (link : https://www.who.int/tools/child-growth-standards)
+	- Low weight-for-height is known as wasting.
+	- Low height-for-age is known as stunting.
+	- Children with low weight-for-age are known as underweight.
+	- An infant was defined as stunted, wasted or underweight if his or her length-for-age, weight-for-length or weight-for-age z-score, respectively, was less than -2.
+	- The z-score was accessed from the WHO growth standards to determine the under-nutrition status of the child. Specifically, for determining stunting, 
+	  the -2 SD of the corresponding age was retrieved from the appropriate WHO dataset and the height of the child was compared to the retrieved value.
+	  If the height is less than the retrieved value, the child is stunted. Similarly, wasted and underweight status were determined.
+	- A child is under-nutritioned if he/she is either stunted, wasted, underweight or any combination of stunted, wasted and underweight.
+Step-2: Assessing the impact of the factors from the provided dataset on child under-nutrition :-
+	- Logistic regression models (or binary regression models) were constructed to assess the impact of the factors from the provided dataset on
+	  child under-nutrition status. Specifically, logistic regression models of child under-nutrition against the factors, child stunting against the factors,
+	  child wasting against the factors and child underweight against the factors were constructed.
+	- The summary of the above models is stored in result/model-data.txt
+	- Barplots of the data is stored in the "result" folder.
