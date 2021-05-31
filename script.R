@@ -1,7 +1,7 @@
 # An R script to assess the impact of child marriage on child under-nutrition.
 # Author: Shehyaaz Khan Nayazi
 
-setwd("~/data_science_impact_of_child_marriage")
+setwd("~/impact-of-child-marriage-data-science")
 # load dataset
 dataset <- read.csv("dataset/new_trial_diss_clean.csv")
 ## load WHO data ##
@@ -112,9 +112,10 @@ mat[, "Underweight"] <- c(with(child_data, sum(underweight[age_of_child_month >=
                           with(child_data, sum(underweight[age_of_child_month > 36 & age_of_child_month <= 48]), na.rm = TRUE),
                           with(child_data, sum(underweight[age_of_child_month > 48 & age_of_child_month <= 60]), na.rm = TRUE))
 jpeg("result/under-nutrition-stats.jpg")
-barplot(t(mat), beside = TRUE, main = "Under-nutrition status based on age",
+b <- barplot(t(mat), beside = TRUE, main = "Under-nutrition status based on age",
         col = c(2,3,4), legend.text = c("Stundted", "Wasted", "Underweight"),
         args.legend = list(x = "top"), xlab = "Child age group(months)", ylim = c(0,30))
+text(b, t(mat)+0.5, labels = t(mat), cex = 0.8)
 dev.off()
 
 # Plot under-nutrition against factors
@@ -123,34 +124,39 @@ jpeg("result/under-nutrition-result.jpg")
 layout(mat = matrix(c(1,2,3,4,5,6),nrow = 2,ncol = 3,byrow = TRUE),heights = c(0.5,0.5))
 # barplot of under-nutrition against age_at_marriage
 par(cex=0.7, mar=c(3,2,2,1)) #set margins
-barplot(table(mother_data$child_undernutrition, mother_data$age_at_marriage), 
-        names.arg = c("< 18", "> 18"), beside = TRUE, 
-        main = "Age at marriage", col = c("green","red"))
+t <- table(mother_data$child_undernutrition, mother_data$age_at_marriage)
+b <- barplot(t, names.arg = c("< 18", "> 18"), beside = TRUE, horiz = T, xlim = c(0,40),
+        main = "Age at marriage", col = c("lightgreen","salmon"))
+text(t+2, b, labels = t)
 # barplot of under-nutrition against education-level
 par(cex=0.7, mar=c(3,2,2,1)) #set margins
-barplot(table(mother_data$child_undernutrition, mother_data$education_level), 
-        names.arg = c("None", "P", "S", "H"), beside = TRUE, 
-        main = "Education level", col = c("green","red"))
+t <- table(mother_data$child_undernutrition, mother_data$education_level)
+b <- barplot(t, names.arg = c("None", "P", "S", "H"), beside = TRUE, horiz = T, xlim = c(0,40), 
+        main = "Education level", col = c("lightgreen","salmon"))
+text(t+2, b, labels = t)
 # barplot of under-nutrition against mother_anaemic_preg
 par(cex=0.7, mar=c(3,2,2,1)) #set margins
-barplot(table(mother_data$child_undernutrition, mother_data$mother_anaemic_preg), 
-        names.arg = c("Yes", "No"), beside = TRUE, 
-        main = "Anaemic during Preg.", col = c("green","red"))
+t <- table(mother_data$child_undernutrition, mother_data$mother_anaemic_preg)
+b <- barplot(t, names.arg = c("Yes", "No"), beside = TRUE, horiz = T, xlim = c(0,55),
+        main = "Anaemic during Preg.", col = c("lightgreen","salmon"))
+text(t+2, b, labels = t)
 # barplot of under-nutrition against avg_monthly_income
 par(cex=0.7, mar=c(5,2,2,0.5)) #set margins
-barplot(table(mother_data$child_undernutrition, mother_data$avg_monthly_income), 
-        names.arg = c("<15", "15-50", "50-100", ">100"), beside = TRUE, 
-        main = "Avg. Monthly Income(1000s)", col = c("green","red"))
+t <- table(mother_data$child_undernutrition, mother_data$avg_monthly_income)
+b <- barplot(t, names.arg = c("<15", "15-50", "50-100", ">100"), beside = TRUE, horiz = T, xlim = c(0,40),
+        main = "Avg. Monthly Income(1000s)", col = c("lightgreen","salmon"))
+text(t+2, b, labels = t)
 # barplot of under-nutrition against anc_visit
 par(cex=0.7, mar=c(5,2.5,2,0.5)) #set margins
-barplot(table(mother_data$child_undernutrition, mother_data$anc_visit), 
-        names.arg = c(1:8), beside = TRUE, 
-        main = "ANC visits", col = c("green","red"))
+t <- table(mother_data$child_undernutrition, mother_data$anc_visit)
+b <- barplot(t, names.arg = c(1:8), beside = TRUE, horiz = T, xlim = c(0,40),
+        main = "ANC visits", col = c("lightgreen","salmon"))
+text(t+2, b, labels = t)
 # show common legend
 plot(1, type = "n", axes=FALSE, xlab="", ylab="")
 legend(x = "top",inset = 0,
        legend = c("Normal", "Under-nutritioned"), 
-       col = c("green","red"), lwd = 5, cex = 1)
+       col = c("lightgreen","salmon"), lwd = 5, cex = 1)
 dev.off()
 
 # Plot stunted against factors
@@ -159,34 +165,39 @@ jpeg("result/stunted-result.jpg")
 layout(mat = matrix(c(1,2,3,4,5,6),nrow = 2,ncol = 3,byrow = TRUE),heights = c(0.5,0.5))
 # barplot of stunted against age_at_marriage
 par(cex=0.7, mar=c(3,2,2,1)) #set margins
-barplot(table(mother_data$child_stunted, mother_data$age_at_marriage), 
-        names.arg = c("< 18", "> 18"), beside = TRUE, 
-        main = "Age at marriage", col = c("orange", "red"))
+t <- table(mother_data$child_stunted, mother_data$age_at_marriage)
+b <- barplot(t, names.arg = c("< 18", "> 18"), beside = TRUE, horiz = T, xlim = c(0,40),
+             main = "Age at marriage", col = c("orange","salmon"))
+text(t+2, b, labels = t)
 # barplot of stunted against education-level
 par(cex=0.7, mar=c(3,2,2,1)) #set margins
-barplot(table(mother_data$child_stunted, mother_data$education_level), 
-        names.arg = c("None", "P", "S", "H"), beside = TRUE, 
-        main = "Education level", col = c("orange", "red"))
+t <- table(mother_data$child_stunted, mother_data$education_level)
+b <- barplot(t, names.arg = c("None", "P", "S", "H"), beside = TRUE, horiz = T, xlim = c(0,40), 
+             main = "Education level", col = c("orange","salmon"))
+text(t+2, b, labels = t)
 # barplot of stunted against mother_anaemic_preg
 par(cex=0.7, mar=c(3,2,2,1)) #set margins
-barplot(table(mother_data$child_stunted, mother_data$mother_anaemic_preg), 
-        names.arg = c("Yes", "No"), beside = TRUE, 
-        main = "Anaemic during Preg.", col = c("orange", "red"))
+t <- table(mother_data$child_stunted, mother_data$mother_anaemic_preg)
+b <- barplot(t, names.arg = c("Yes", "No"), beside = TRUE, horiz = T, xlim = c(0,55),
+             main = "Anaemic during Preg.", col = c("orange","salmon"))
+text(t+2, b, labels = t)
 # barplot of stunted against avg_monthly_income
 par(cex=0.7, mar=c(5,2,2,0.5)) #set margins
-barplot(table(mother_data$child_stunted, mother_data$avg_monthly_income), 
-        names.arg = c("<15", "15-50", "50-100", ">100"), beside = TRUE, 
-        main = "Avg. Monthly Income(1000s)", col = c("orange", "red"))
+t <- table(mother_data$child_stunted, mother_data$avg_monthly_income)
+b <- barplot(t, names.arg = c("<15", "15-50", "50-100", ">100"), beside = TRUE, horiz = T, xlim = c(0,40),
+             main = "Avg. Monthly Income(1000s)", col = c("orange","salmon"))
+text(t+2, b, labels = t)
 # barplot of stunted against anc_visit
 par(cex=0.7, mar=c(5,2.5,2,0.5)) #set margins
-barplot(table(mother_data$child_stunted, mother_data$anc_visit), 
-        names.arg = c(1:8), beside = TRUE, 
-        main = "ANC visits", col = c("orange", "red"))
+t <- table(mother_data$child_stunted, mother_data$anc_visit)
+b <- barplot(t, names.arg = c(1:8), beside = TRUE, horiz = T, xlim = c(0,40),
+             main = "ANC visits", col = c("orange","salmon"))
+text(t+2, b, labels = t)
 # show common legend
 plot(1, type = "n", axes=FALSE, xlab="", ylab="")
 legend(x = "top",inset = 0,
-       legend = c("Not stunted", "Stunted"), 
-       col=c("orange", "red"), lwd=5, cex=1)
+       legend = c("Not Stunted", "Stunted"), 
+       col = c("orange","salmon"), lwd = 5, cex = 1)
 dev.off()
 
 # Plot wasted against factors
@@ -195,34 +206,39 @@ jpeg("result/wasted-result.jpg")
 layout(mat = matrix(c(1,2,3,4,5,6),nrow = 2,ncol = 3,byrow = TRUE),heights = c(0.5,0.5))
 # barplot of wasted against age_at_marriage
 par(cex=0.7, mar=c(3,2,2,1)) #set margins
-barplot(table(mother_data$child_wasted, mother_data$age_at_marriage), 
-        names.arg = c("< 18", "> 18"), beside = TRUE, 
-        main = "Age at marriage", col = c("orange", "red"))
+t <- table(mother_data$child_wasted, mother_data$age_at_marriage)
+b <- barplot(t, names.arg = c("< 18", "> 18"), beside = TRUE, horiz = T, xlim = c(0,40),
+             main = "Age at marriage", col = c("orange","salmon"))
+text(t+2, b, labels = t)
 # barplot of wasted against education-level
 par(cex=0.7, mar=c(3,2,2,1)) #set margins
-barplot(table(mother_data$child_wasted, mother_data$education_level), 
-        names.arg = c("None", "P", "S", "H"), beside = TRUE, 
-        main = "Education level", col = c("orange", "red"))
+t <- table(mother_data$child_wasted, mother_data$education_level)
+b <- barplot(t, names.arg = c("None", "P", "S", "H"), beside = TRUE, horiz = T, xlim = c(0,40), 
+             main = "Education level", col = c("orange","salmon"))
+text(t+2, b, labels = t)
 # barplot of wasted against mother_anaemic_preg
 par(cex=0.7, mar=c(3,2,2,1)) #set margins
-barplot(table(mother_data$child_wasted, mother_data$mother_anaemic_preg), 
-        names.arg = c("Yes", "No"), beside = TRUE, 
-        main = "Anaemic during Preg.", col = c("orange", "red"))
+t <- table(mother_data$child_wasted, mother_data$mother_anaemic_preg)
+b <- barplot(t, names.arg = c("Yes", "No"), beside = TRUE, horiz = T, xlim = c(0,55),
+             main = "Anaemic during Preg.", col = c("orange","salmon"))
+text(t+2, b, labels = t)
 # barplot of wasted against avg_monthly_income
 par(cex=0.7, mar=c(5,2,2,0.5)) #set margins
-barplot(table(mother_data$child_wasted, mother_data$avg_monthly_income), 
-        names.arg = c("<15", "15-50", "50-100", ">100"), beside = TRUE, 
-        main = "Avg. Monthly Income(1000s)", col = c("orange", "red"))
+t <- table(mother_data$child_wasted, mother_data$avg_monthly_income)
+b <- barplot(t, names.arg = c("<15", "15-50", "50-100", ">100"), beside = TRUE, horiz = T, xlim = c(0,40),
+             main = "Avg. Monthly Income(1000s)", col = c("orange","salmon"))
+text(t+2, b, labels = t)
 # barplot of wasted against anc_visit
 par(cex=0.7, mar=c(5,2.5,2,0.5)) #set margins
-barplot(table(mother_data$child_wasted, mother_data$anc_visit), 
-        names.arg = c(1:8), beside = TRUE, 
-        main = "ANC visits", col = c("orange", "red"))
+t <- table(mother_data$child_wasted, mother_data$anc_visit)
+b <- barplot(t, names.arg = c(1:8), beside = TRUE, horiz = T, xlim = c(0,40),
+             main = "ANC visits", col = c("orange","salmon"))
+text(t+2, b, labels = t)
 # show common legend
 plot(1, type = "n", axes=FALSE, xlab="", ylab="")
 legend(x = "top",inset = 0,
-       legend = c("Not wasted", "Wasted"), 
-       col=c("orange", "red"), lwd=5, cex=1)
+       legend = c("Not Wasted", "Wasted"), 
+       col = c("orange","salmon"), lwd = 5, cex = 1)
 dev.off()
 
 # Plot underweight against factors
@@ -231,32 +247,37 @@ jpeg("result/underweight-result.jpg")
 layout(mat = matrix(c(1,2,3,4,5,6),nrow = 2,ncol = 3,byrow = TRUE),heights = c(0.5,0.5))
 # barplot of underweight against age_at_marriage
 par(cex=0.7, mar=c(3,2,2,1)) #set margins
-barplot(table(mother_data$child_underweight, mother_data$age_at_marriage), 
-        names.arg = c("< 18", "> 18"), beside = TRUE, 
-        main = "Age at marriage", col = c("orange", "red"))
+t <- table(mother_data$child_underweight, mother_data$age_at_marriage)
+b <- barplot(t, names.arg = c("< 18", "> 18"), beside = TRUE, horiz = T, xlim = c(0,40),
+             main = "Age at marriage", col = c("orange","salmon"))
+text(t+2, b, labels = t)
 # barplot of underweight against education-level
 par(cex=0.7, mar=c(3,2,2,1)) #set margins
-barplot(table(mother_data$child_underweight, mother_data$education_level), 
-        names.arg = c("None", "P", "S", "H"), beside = TRUE, 
-        main = "Education level", col = c("orange", "red"))
+t <- table(mother_data$child_underweight, mother_data$education_level)
+b <- barplot(t, names.arg = c("None", "P", "S", "H"), beside = TRUE, horiz = T, xlim = c(0,40), 
+             main = "Education level", col = c("orange","salmon"))
+text(t+2, b, labels = t)
 # barplot of underweight against mother_anaemic_preg
 par(cex=0.7, mar=c(3,2,2,1)) #set margins
-barplot(table(mother_data$child_underweight, mother_data$mother_anaemic_preg), 
-        names.arg = c("Yes", "No"), beside = TRUE, 
-        main = "Anaemic during Preg.", col = c("orange", "red"))
+t <- table(mother_data$child_underweight, mother_data$mother_anaemic_preg)
+b <- barplot(t, names.arg = c("Yes", "No"), beside = TRUE, horiz = T, xlim = c(0,55),
+             main = "Anaemic during Preg.", col = c("orange","salmon"))
+text(t+2, b, labels = t)
 # barplot of underweight against avg_monthly_income
 par(cex=0.7, mar=c(5,2,2,0.5)) #set margins
-barplot(table(mother_data$child_underweight, mother_data$avg_monthly_income), 
-        names.arg = c("<15", "15-50", "50-100", ">100"), beside = TRUE, 
-        main = "Avg. Monthly Income(1000s)", col = c("orange", "red"))
+t <- table(mother_data$child_underweight, mother_data$avg_monthly_income)
+b <- barplot(t, names.arg = c("<15", "15-50", "50-100", ">100"), beside = TRUE, horiz = T, xlim = c(0,40),
+             main = "Avg. Monthly Income(1000s)", col = c("orange","salmon"))
+text(t+2, b, labels = t)
 # barplot of underweight against anc_visit
 par(cex=0.7, mar=c(5,2.5,2,0.5)) #set margins
-barplot(table(mother_data$child_underweight, mother_data$anc_visit), 
-        names.arg = c(1:8), beside = TRUE, 
-        main = "ANC visits", col = c("orange", "red"))
+t <- table(mother_data$child_underweight, mother_data$anc_visit)
+b <- barplot(t, names.arg = c(1:8), beside = TRUE, horiz = T, xlim = c(0,40),
+             main = "ANC visits", col = c("orange","salmon"))
+text(t+2, b, labels = t)
 # show common legend
 plot(1, type = "n", axes=FALSE, xlab="", ylab="")
 legend(x = "top",inset = 0,
-       legend = c("Not underweight", "Underweight"), 
-       col=c("orange", "red"), lwd=5, cex=1)
+       legend = c("Not Underweight", "Underweight"), 
+       col = c("orange","salmon"), lwd = 5, cex = 1)
 dev.off()
